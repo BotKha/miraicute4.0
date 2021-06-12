@@ -8,23 +8,23 @@ module.exports.config = {
     usages: "[encode hoặc decode] [đoạn text ASCII cần mã hoá]",
     cooldowns: 5,
     dependencies: {
-        "morsify": ""
+        "morse-decoder": ""
     }
 };
 
 module.exports.run = function({ api, event, args }) {
-   const morsify = global.nodemdule["morsify"];
+   const morsify = global.nodemodule["morse-decoder"];
    switch (event.type) {
        case "message_reply": {
         const content = event.messageReply.body || "";
            switch (args[0]) {
                case "encode":
                    case "en": {
-                       return api.sendMessage(morsify.encode(content), event.threadID, event.messageID);
+                       return api.sendMessage(morsify.encode(content.join(" ")), event.threadID, event.messageID);
                    }
                 case "decode":
                     case "de": {
-                        return api.sendMessage(morsify.decode(content), event.threadID, event.messageID);
+                        return api.sendMessage(morsify.decode(content.join(" ")), event.threadID, event.messageID);
                     }
                default:
                     return global.utils.throwError("morse", event.threadID, event.messageID);
@@ -35,11 +35,11 @@ module.exports.run = function({ api, event, args }) {
             switch (args[0]) {
                 case "encode":
                     case "en": {
-                        return api.sendMessage(morsify.encode(content), event.threadID, event.messageID);
+                        return api.sendMessage(morsify.encode(content.join(" ")), event.threadID, event.messageID);
                     }
                 case "decode":
                     case "de": {
-                        return api.sendMessage(morsify.decode(content), event.threadID, event.messageID);
+                        return api.sendMessage(morsify.decode(content.join(" ")), event.threadID, event.messageID);
                     }
                 default:
                     return global.utils.throwError("morse", event.threadID, event.messageID);
